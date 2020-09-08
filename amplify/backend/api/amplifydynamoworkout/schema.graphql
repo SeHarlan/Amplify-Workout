@@ -1,0 +1,8 @@
+type Workout @model {
+  id: ID!
+  name: String!
+  description: String
+  light: Int
+  medium: Int
+  heavy: Int
+}
