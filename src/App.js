@@ -1,9 +1,6 @@
 /* src/App.js */
 import React, { useEffect, useState } from 'react'
 import Amplify from 'aws-amplify'
-// import Amplify, { API, graphqlOperation } from 'aws-amplify'
-// import { createWorkout, updateWorkout, deleteWorkout } from './graphql/mutations.ts'
-// import { listWorkouts } from './graphql/queries.ts'
 import { fetchWorkouts, addWorkout, setWeight, removeWorkout, initialState } from './APIServices.ts'
 
 import awsExports from "./aws-exports";
@@ -20,91 +17,6 @@ const App = () => {
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value })
   }
-
-  // async function fetchWorkouts() {
-  //   try {
-  //     const workoutData = await API.graphql(graphqlOperation(listWorkouts))
-  //     const workouts = workoutData.data.listWorkouts.items
-  //     const mungedWorkouts = workouts.map(({
-  //       id,
-  //       name,
-  //       description,
-  //       light,
-  //       medium,
-  //       heavy }) => {
-  //       return {
-  //         id,
-  //         name,
-  //         description,
-  //         light,
-  //         medium,
-  //         heavy
-  //       }
-  //     })
-  //     setWorkouts(mungedWorkouts)
-  //   } catch (err) { console.log('error fetching Workouts: ', err) }
-  // }
-
-  // async function addWorkout() {
-  //   try {
-  //     if (!formState.name || !formState.description) return
-  //     const workout = {
-  //       ...formState,
-  //       light: 0,
-  //       medium: 0,
-  //       heavy: 0
-  //     }
-  //     setFormState(initialState)
-
-  //     const { data } = await API.graphql(graphqlOperation(createWorkout, { input: workout }))
-
-  //     const {
-  //       id,
-  //       name,
-  //       description,
-  //       light,
-  //       medium,
-  //       heavy
-  //     } = data.createWorkout
-
-  //     const returnedWorkout = {
-  //       id,
-  //       name,
-  //       description,
-  //       light,
-  //       medium,
-  //       heavy
-  //     }
-
-  //     setWorkouts([...workouts, returnedWorkout])
-  //   } catch (err) {
-  //     console.log('error creating workout: ', err)
-  //   }
-  // }
-
-  // async function removeWorkout(index) {
-  //   try {
-  //     const copyWorkouts = [...workouts]
-  //     const [deletedWorkout] = copyWorkouts.splice(index, 1)
-  //     setWorkouts(copyWorkouts)
-
-  //     await API.graphql(graphqlOperation(deleteWorkout, { input: { id: deletedWorkout.id } }))
-  //   } catch (err) {
-  //     console.log('error deleting workout: ', err)
-  //   }
-  // }
-
-
-  // async function setWeight(index, key, weight) {
-  //   try {
-  //     const copyWorkouts = [...workouts]
-  //     copyWorkouts[index][key] = weight
-  //     setWorkouts(copyWorkouts)
-
-  //     await API.graphql(graphqlOperation(updateWorkout, { input: copyWorkouts[index] }))
-  //   } catch (err) { console.log('error updating weight: ', err) }
-
-  // }
 
   return (
     <div style={styles.container}>

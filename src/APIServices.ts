@@ -11,6 +11,12 @@ interface workoutInterface {
   heavy: number
 }
 
+interface weightsInterface {
+  light: number,
+  medium: number,
+  heavy: number
+}
+
 interface dataInterface {
   id: string,
   name: string,
@@ -106,9 +112,9 @@ export async function removeWorkout(index: number, workouts: workoutInterface[],
 }
 
 
-export async function setWeight(index: number, key: string, weight: number, workouts: workoutInterface[], setWorkouts: Function) {
+export async function setWeight(index: number, key: keyof weightsInterface, weight: number, workouts: workoutInterface[], setWorkouts: Function) {
   try {
-    const copyWorkouts: any = [...workouts]
+    const copyWorkouts = [...workouts]
     copyWorkouts[index][key] = weight
     setWorkouts(copyWorkouts)
 
