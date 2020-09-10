@@ -2,16 +2,10 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { createWorkout, updateWorkout, deleteWorkout } from './graphql/mutations'
 import { listWorkouts } from './graphql/queries'
 
-interface workoutInterface {
+export interface workoutInterface {
   id: string,
   name: string,
   description: string,
-  light: number,
-  medium: number,
-  heavy: number
-}
-
-interface weightsInterface {
   light: number,
   medium: number,
   heavy: number
@@ -28,7 +22,7 @@ interface dataInterface {
   updatedAt: Date
 }
 
-interface formStateInterface {
+export interface formStateInterface {
   name: string,
   description: string,
 }
@@ -111,8 +105,9 @@ export async function removeWorkout(index: number, workouts: workoutInterface[],
   }
 }
 
+type weightKey = "light" | "medium" | "heavy"
 
-export async function setWeight(index: number, key: keyof weightsInterface, weight: number, workouts: workoutInterface[], setWorkouts: Function) {
+export async function setWeight(index: number, key: weightKey, weight: number, workouts: workoutInterface[], setWorkouts: Function) {
   try {
     const copyWorkouts = [...workouts]
     copyWorkouts[index][key] = weight
