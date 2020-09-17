@@ -51,8 +51,10 @@ const App = () => {
     <div className={styles.container} >
       <header className={styles.titleContainer}>
         <h2>My Workouts</h2>
-        <label htmlFor="createCheck">Create New Workout</label>
-        <input type="checkbox" id="createCheck" checked={createBool} onChange={() => setCreateBool(bool => !bool)} />
+        <>
+          <label htmlFor="createCheck">Create New Workout</label>
+          <input type="checkbox" id="createCheck" checked={createBool} onChange={() => setCreateBool(bool => !bool)} />
+        </>
       </header>
 
       {createBool && (<>
@@ -100,8 +102,10 @@ const App = () => {
               : (<>
                 <div className={styles.titleContainer}>
                   <p className={styles.workoutName} > {workout.name} </p>
-                  <label htmlFor={`${index}`}>edit {workout.name}</label>
-                  <input type="checkbox" checked={workouts[index].editBool} onChange={handleEditBool} id={`${index}`} />
+                  <>
+                    <label htmlFor={`${index}`}>edit {workout.name}</label>
+                    <input type="checkbox" checked={workouts[index].editBool} onChange={handleEditBool} id={`${index}`} />
+                  </>
                 </div>
 
                 <p className={styles.workoutDescription}>{workout.description}</p>
