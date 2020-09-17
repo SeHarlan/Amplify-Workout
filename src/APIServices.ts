@@ -8,7 +8,8 @@ export interface workoutInterface {
   description: string,
   light: number,
   medium: number,
-  heavy: number
+  heavy: number,
+  editBool?: boolean
 }
 
 interface dataInterface {
@@ -49,7 +50,8 @@ export async function fetchWorkouts(setWorkouts: Function) {
         description,
         light,
         medium,
-        heavy
+        heavy,
+        editBool: false
       }
     })
     setWorkouts(mungedWorkouts)
@@ -113,6 +115,30 @@ export async function setWeight(index: number, key: weightKey, weight: number, w
     copyWorkouts[index][key] = weight
     setWorkouts(copyWorkouts)
 
-    await API.graphql(graphqlOperation(updateWorkout, { input: copyWorkouts[index] }))
+    const workoutCopy: workoutInterface = {
+      id: copyWorkouts[index].id,
+      name: copyWorkouts[index].name,
+      description: copyWorkouts[index].description,
+      light: copyWorkouts[index].light,
+      medium: copyWorkouts[index].medium,
+      heavy: copyWorkouts[index].heavy,
+    }
+
+    await API.graphql(graphqlOperation(updateWorkout, { input: workoutCopy }))
   } catch (err) { console.log('error updating weight: ', err) }
+}
+
+export async function editWorkout(workout: workoutInterface) {
+  const workoutCopy: workoutInterface = {
+    id: workout.id,
+    name: workout.name,
+    description: workout.description,
+    light: workout.light,
+    medium: workout.medium,
+    heavy: workout.heavy,
+  }
+  // look into why delete workout.editBool doesnt work
+  try {
+    await API.graphql(graphqlOperation(updateWorkout, { input: workoutCopy }))
+  } catch (err) { console.log('error updating name or description: ', err) }
 }
