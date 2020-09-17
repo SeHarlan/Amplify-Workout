@@ -55,7 +55,7 @@ export async function fetchWorkouts(setWorkouts: Function) {
       }
     })
     setWorkouts(mungedWorkouts)
-  } catch (err) { console.log('error fetching Workouts: ', err) }
+  } catch (err) { alert(`error fetching Workouts: ${err}`) }
 }
 
 export async function addWorkout(formState: formStateInterface, setFormState: Function, setWorkouts: Function, workouts: workoutInterface[]) {
@@ -91,7 +91,7 @@ export async function addWorkout(formState: formStateInterface, setFormState: Fu
 
     setWorkouts([...workouts, returnedWorkout])
   } catch (err) {
-    console.log('error creating workout: ', err)
+    alert(`error creating workout: ${err}`)
   }
 }
 
@@ -103,7 +103,7 @@ export async function removeWorkout(index: number, workouts: workoutInterface[],
 
     await API.graphql(graphqlOperation(deleteWorkout, { input: { id: deletedWorkout.id } }))
   } catch (err) {
-    console.log('error deleting workout: ', err)
+    alert(`error deleting workout: ${err}`)
   }
 }
 
@@ -125,7 +125,7 @@ export async function setWeight(index: number, key: weightKey, weight: number, w
     }
 
     await API.graphql(graphqlOperation(updateWorkout, { input: workoutCopy }))
-  } catch (err) { console.log('error updating weight: ', err) }
+  } catch (err) { alert(`error updating weight: ${err}`) }
 }
 
 export async function editWorkout(workout: workoutInterface) {
@@ -140,5 +140,5 @@ export async function editWorkout(workout: workoutInterface) {
   // look into why delete workout.editBool doesnt work
   try {
     await API.graphql(graphqlOperation(updateWorkout, { input: workoutCopy }))
-  } catch (err) { console.log('error updating name or description: ', err) }
+  } catch (err) { alert(`error updating name or description: ${err}`) }
 }

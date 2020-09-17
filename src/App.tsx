@@ -13,6 +13,7 @@ const initWorkouts: workoutInterface[] = []
 const App = () => {
   const [formState, setFormState] = useState(initialState)
   const [workouts, setWorkouts] = useState(initWorkouts)
+  const [createBool, setCreateBool] = useState(false)
 
   useEffect(() => {
     fetchWorkouts(setWorkouts)
@@ -42,22 +43,34 @@ const App = () => {
     setWorkouts(oldWorkouts)
   }
 
+  function handleCreateWorkout() {
+    addWorkout(formState, setFormState, setWorkouts, workouts)
+    setCreateBool(bool => !bool)
+  }
   return (
     <div className={styles.container} >
-      <h2>My Workouts</h2>
-      < input
-        onChange={event => setInput('name', event.target.value)}
-        className={styles.input}
-        value={formState.name}
-        placeholder="Name"
-      />
-      <textarea
-        onChange={event => setInput('description', event.target.value)}
-        className={styles.input}
-        value={formState.description}
-        placeholder="Description"
-      />
-      <button className={styles.button} onClick={() => addWorkout(formState, setFormState, setWorkouts, workouts)}>Create Workout</button>
+      <header className={styles.titleContainer}>
+        <h2>My Workouts</h2>
+        <label htmlFor="createCheck">Create New Workout</label>
+        <input type="checkbox" id="createCheck" checked={createBool} onChange={() => setCreateBool(bool => !bool)} />
+      </header>
+
+      {createBool && (<>
+        < input
+          onChange={event => setInput('name', event.target.value)}
+          className={styles.input}
+          value={formState.name}
+          placeholder="Name"
+        />
+        <textarea
+          onChange={event => setInput('description', event.target.value)}
+          className={styles.input}
+          value={formState.description}
+          placeholder="Description"
+        />
+        <button className={styles.button} onClick={handleCreateWorkout}>Create Workout</button>
+      </>)}
+
       {
         workouts.map((workout, index) => (
           <div key={workout.id ? workout.id : index} className={styles.workout} >
